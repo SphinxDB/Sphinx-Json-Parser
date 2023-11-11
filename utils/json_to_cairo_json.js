@@ -13,7 +13,7 @@ function obj_handler(obj, keys, res_arr) {
     }
 
     res_arr.push(keys[i]);
-    if (typeof res_arr !== "object") res_arr.push(obj[keys[i]]);
+    if (typeof obj[keys[i]] !== "object") res_arr.push(obj[keys[i]]);
     if (typeof obj[keys[i]] === "object") {
       res_arr.push("_");
       obj_handler(obj[keys[i]], Object.keys(obj[keys[i]]), res_arr);

@@ -1,24 +1,37 @@
 use core::zeroable::Zeroable;
 use core::array::ArrayTrait;
+use dict::Felt252DictTrait;
 use debug::PrintTrait;
 
 
-// fn deserializer(records: Array<felt252>) -> Felt252Dict<felt252> {
-//     let mut i: u32 = 0;
-//     loop {
-//         if i == records.len() {
-//             break;
-//         }
-//         i.print();
-//         i = i + 1;
+fn deserializer(records: Array<felt252>) -> Felt252Dict<felt252> {
+    let mut i: u32 = 0;
+    let mut result_dict: Felt252Dict<felt252> = Default::default();
+    loop {
+        if i >= records.len() - 1 {
+            break;
+        }
+        if (*records.at(i + 1) != '_') {
+            result_dict.insert(*records.at(i), *records.at(i + 1));
+        }
+        if (*records.at(i + 1) == '_') {
+            continue;
+        }
+        if (*records.at(i + 1) == '*') {
+            continue;
+        }
+        i += 2;
+    };
+    result_dict
+}
+
+
+// fn obj_to_dict(records: Array<felt252>, i: u32) -> Felt252Dict<felt252> {
+//     let mut inner_dict: Felt252Dict<felt252> = Default::default();
+//     loop{
+
 //     }
-//     let mut x = *records.at(0);
-// }
-
-// fn dict_to_dict() -> Felt252Dict<Felt252Dict<felt252>> {
-//     let mut dict: Felt252Dict<Felt252Dict<felt252>> = Default::default();
-
-//     dict
+//     inner_dict
 // }
 
 // fn string_to_dict(str: felt252) -> Felt252Dict<felt252> {
@@ -37,10 +50,19 @@ fn get_char(str: felt252) -> felt252 {
 
 fn main() {
     let mut arr: Array<felt252> = ArrayTrait::new();
-    arr.append('"user":{"name":"Izzet"}');
-    arr.append('"user":{"name":"Mete"}');
-    arr.append('"user":{"name":"Yusuf"}');
-    arr.append('"user":{"name":"Yaman"}');
+    arr.append('id');
+    arr.append(1);
+    arr.append('name');
+    arr.append('John Doe');
+    arr.append('x');
+    arr.append('_');
+    arr.append('y');
+    arr.append(14);
+    arr.append('z');
+    arr.append(15);
+    arr.append('*');
+    arr.append('age');
+    arr.append(12);
 // let mut x = deserializer(arr);
 // x.print();
 }
