@@ -1,2 +1,2 @@
 mod sphinx_deserializer;
-mod linked_list_2d;
+mod multi_dim_linked_list;

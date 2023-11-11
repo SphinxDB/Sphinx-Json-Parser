@@ -6,23 +6,23 @@ use debug::PrintTrait;
 
 fn deserializer(records: Array<felt252>) -> Felt252Dict<felt252> {
     let mut i: u32 = 0;
-    let mut result_dict: Felt252Dict<felt252> = Default::default();
+
     loop {
         if i >= records.len() - 1 {
             break;
         }
-        if (*records.at(i + 1) != '_') {
-            result_dict.insert(*records.at(i), *records.at(i + 1));
+        if (*records.at(i + 1) != '_') {//push to linked list
         }
         if (*records.at(i + 1) == '_') {
-            continue;
+            loop {//push to sub linked list
+            };
         }
-        if (*records.at(i + 1) == '*') {
+        if (*records.at(i) == '*') {
+            i += 1;
             continue;
         }
         i += 2;
     };
-    result_dict
 }
 
 
