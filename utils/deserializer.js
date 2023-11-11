@@ -1,3 +1,7 @@
+var fs = require("fs");
+var obj = JSON.parse(fs.readFileSync("./example.json", "utf8"));
+
+console.log(json_to_cairo_json(obj, []));
 function json_to_cairo_json(obj, res_arr) {
   keys = Object.keys(obj);
   obj_handler(obj, keys, res_arr);
