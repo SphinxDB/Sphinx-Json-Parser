@@ -9,25 +9,24 @@ struct MultiDimLinkedList<T> {
     sub: Option<MultiDimLinkedList<T>>
 }
 
-trait LinkedListTrait<S, T> {
+trait MultiDimLinkedListTrait<S, T> {
     fn initialize() -> MultiDimLinkedList<T>;
     fn create(ref self: S, key: felt252, value: felt252) -> MultiDimLinkedList<T>;
     fn find(ref self: S, key: felt252) -> Option::<MultiDimLinkedList<T>>;
     fn _find_sub(ref self: S, key: felt252) -> Option::<MultiDimLinkedList<T>>;
-    fn push(ref self: S, key: felt252, value: felt252);
+    fn push(ref self: S, key: felt252, value: felt252) -> MultiDimLinkedList<T>;
     fn push_sub(ref self: S, parent_key: felt252, key: felt252, value: felt252);
     fn _get_tail(ref self: S) -> MultiDimLinkedList<T>;
     fn _get_subtail(ref self: S) -> MultiDimLinkedList<T>;
     fn _check_equal(self: S, comp: MultiDimLinkedList<T>) -> bool;
 }
 
-impl LinkedListImpl<
+impl MultiDimLinkedListImpl<
     T, impl TDrop: Drop<T>, impl TCopy: Copy<T>
-> of LinkedListTrait<MultiDimLinkedList<T>, T> {
+> of MultiDimLinkedListTrait<MultiDimLinkedList<T>, T> {
     fn initialize() -> MultiDimLinkedList<T> {
-        let mut node = MultiDimLinkedList {
-            key: 0, value: 0, head: Option::None(()), next: Option::None(()), sub: Option::None(())
-        };
+        let null: Option::<MultiDimLinkedList<T>> = Option::None(());
+        let mut node = MultiDimLinkedList { key: 0, value: 0, head: null, next: null, sub: null };
         node.head = Option::Some(node);
         node
     }
@@ -35,13 +34,14 @@ impl LinkedListImpl<
     fn create(
         ref self: MultiDimLinkedList<T>, key: felt252, value: felt252
     ) -> MultiDimLinkedList<T> {
-        MultiDimLinkedList {
+        let res = MultiDimLinkedList {
             key: key,
             value: value,
             head: Option::Some(self),
             next: Option::None(()),
             sub: Option::None(())
-        }
+        };
+        res
     }
 
     fn find(ref self: MultiDimLinkedList<T>, key: felt252) -> Option::<MultiDimLinkedList<T>> {
@@ -113,10 +113,13 @@ impl LinkedListImpl<
         tmp
     }
 
-    fn push(ref self: MultiDimLinkedList<T>, key: felt252, value: felt252) {
+    fn push(
+        ref self: MultiDimLinkedList<T>, key: felt252, value: felt252
+    ) -> MultiDimLinkedList<T> {
         let mut head = self.head.unwrap();
         let mut tail: MultiDimLinkedList::<T> = self._get_tail();
-        head.create(key, value);
+        let res = head.create(key, value);
+        res
     }
 
     fn _get_subtail(ref self: MultiDimLinkedList<T>) -> MultiDimLinkedList<T> {
