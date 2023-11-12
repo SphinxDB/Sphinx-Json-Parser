@@ -48,20 +48,20 @@ fn recursive_push(_i: u32, records: @Array<felt252>, _head: MultiDimLinkedList<f
 }
 
 
-fn main() { // let mut arr: Array<felt252> = ArrayTrait::new();
-// arr.append('id');
-// arr.append(1);
-// arr.append('name');
-// arr.append('John Doe');
-// arr.append('x');
-// arr.append('_');
-// arr.append('y');
-// arr.append(14);
-// arr.append('z');
-// arr.append(15);
-// arr.append('*');
-// arr.append('age');
-// arr.append(12);
-// let mut x = deserializer(arr);
-// x.print();
+fn main() {
+    let mut arr: Array<felt252> = ArrayTrait::new();
+    arr.append('id');
+    arr.append(1);
+    arr.append('name');
+    arr.append('John Doe');
+    arr.append('x');
+    arr.append('_');
+    arr.append('y');
+    arr.append(14);
+    arr.append('z');
+    arr.append(15);
+    arr.append('*');
+    arr.append('age');
+    arr.append(12);
+    let mut head = serializer(arr);
 }
