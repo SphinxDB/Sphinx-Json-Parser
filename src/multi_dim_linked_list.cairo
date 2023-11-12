@@ -25,8 +25,8 @@ impl MultiDimLinkedListImpl<
     T, impl TDrop: Drop<T>, impl TCopy: Copy<T>
 > of MultiDimLinkedListTrait<MultiDimLinkedList<T>, T> {
     fn initialize() -> MultiDimLinkedList<T> {
-        let null: Option::<MultiDimLinkedList<T>> = Option::None(());
-        let mut node = MultiDimLinkedList { key: 0, value: 0, head: null, next: null, sub: null };
+        let none: Option::<MultiDimLinkedList<T>> = Option::None(());
+        let mut node = MultiDimLinkedList { key: 0, value: 0, head: none, next: none, sub: none };
         node.head = Option::Some(node);
         node
     }
